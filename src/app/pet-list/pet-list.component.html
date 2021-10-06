@@ -1,0 +1,41 @@
+<!--List of pets-->
+<div class="container">
+  <h2 class="display-2 my-3">My pets</h2>
+  <p>
+    <a class="btn btn-primary" routerLink="/pets/new" role="button">New pet</a>
+  </p>
+  <app-status-filter
+    [status]="filteredStatus"
+    (statusChange)="handleFilteredStatusChange($event)"
+  ></app-status-filter>
+  <div class="row">
+    <div class="list-group col">
+      <span
+        *ngFor="let pet of filteredPets"
+        class="list-group-item list-group-item-action"
+        [class.list-group-item-danger]="pet.status === 'DEAD'"
+        [class.list-group-item-success]="pet.status === 'LIVING'"
+      >
+        <div class="d-flex w-100 justify-content-between align-items-center">
+          <h5 class="mb-1">{{ pet.pet_name }}</h5>
+          <span
+            class="badge"
+            [class.list-group-item-danger]="pet.status === 'DEAD'"
+            [class.list-group-item-success]="pet.status === 'LIVING'"
+            >{{ pet.note }}</span
+          >
+        </div>
+        <p class="mb-1">
+          {{ pet.the_species }}
+        </p>
+        <small>
+          <i class="fas fa-calendar-alt"></i> {{ pet.date_of_birth }}
+          <i class="fas fa-comment"></i>
+          <span class="badge badge-light badge-pill">3</span>
+          <a [routerLink]="['/pets/edit', pet.id]">Edit</a>
+        </small>
+      </span>
+    </div>
+  </div>
+  {{ selectedPet | json }}
+</div>

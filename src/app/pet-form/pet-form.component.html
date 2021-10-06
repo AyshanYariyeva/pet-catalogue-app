@@ -1,0 +1,88 @@
+<!--Add a new pet Page-->
+<!--<h2 class="display-2 my-3">New pet</h2>-->
+
+<form [formGroup]="petForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="title">Pet Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="pet_name"
+      placeholder="Pet Name"
+      required
+      formControlName="pet_name"
+      [class.is-invalid]="
+        pet_name!.invalid && (pet_name!.dirty || pet_name!.touched)
+      "
+      [class.is-valid]="pet_name!.valid"
+    />
+    <div class="invalid-feedback">Please provide a pet name!</div>
+  </div>
+  <div class="form-group">
+    <label for="description">The species</label>
+    <textarea
+      class="form-control"
+      id="The species"
+      rows="5"
+      required
+      formControlName="the_species"
+    ></textarea>
+    <div class="invalid-feedback">Please provide a description!</div>
+  </div>
+  <div class="form-group">
+    <label for="place">Note</label>
+    <input
+      type="text"
+      class="form-control"
+      id="Note"
+      placeholder="Note"
+      required
+      formControlName="note"
+    />
+    <div class="invalid-feedback">Please provide a note</div>
+  </div>
+  <div class="form-group">
+    <label for="status">Status</label>
+    <select
+      class="form-control"
+      id="status"
+      required
+      formControlName="status"
+      (change)="onStatusChange($event)"
+    >
+      <option value="DEAD">DEAD</option>
+      <option value="LIVING">LIVING</option>
+    </select>
+    <div class="invalid-feedback">Please provide a status!</div>
+  </div>
+  <div class="form-group">
+    <label for="title">Date of birth</label>
+    <input
+      type="date"
+      class="form-control"
+      id="Date of birth"
+      placeholder="Date of birth"
+      required
+      formControlName="date_of_birth"
+    />
+    <div class="invalid-feedback">Please provide Date of birth!</div>
+  </div>
+  <div class="form-group" *ngIf="!isPetAlive">
+    <label for="title">Date of death</label>
+    <input
+      type="date"
+      class="form-control"
+      id="Date of death"
+      placeholder="Date of death"
+      required
+      formControlName="date_of_death"
+    />
+    <div class="invalid-feedback">Please provide date of death!</div>
+  </div>
+  <input type="hidden" formControlName="id" *ngIf="formType==='edit'">
+  <button type="submit" class="btn btn-primary" [disabled]="petForm.invalid">
+    Submit
+  </button>
+  {{ petForm.value | json }}
+  {{ petForm.valid }}
+</form>
